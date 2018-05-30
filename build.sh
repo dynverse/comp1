@@ -1,2 +1,2 @@
-docker build -t dynverse/compone .
-docker push dynverse/compone
+docker build -t dynverse/comp1 .
+docker push dynverse/comp1
