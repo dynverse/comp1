@@ -1,8 +1,10 @@
 # Creating TI methods within a docker
 
-This repository contains a simple example of wrapping a TI method within a docker
+This repository contains a simple example of wrapping a TI method within a docker.
 
-The docker image is automatically created at [dockerhub](https://hub.docker.com/r/dynverse/comp1/builds/).
+
+
+The docker image is automatically build at [dockerhub](https://hub.docker.com/r/dynverse/comp1/builds/).
 
 This method can be run using
 
