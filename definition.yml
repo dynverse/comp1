@@ -1,5 +1,5 @@
 name: component_one
-container: dynverse/compone
+image: dynverse/compone
 parameters:
   component:
     type: integer
