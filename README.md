@@ -9,5 +9,5 @@ The docker image is automatically build at [dockerhub](https://hub.docker.com/r/
 This method can be run using
 
 ```r
-ti_comp1 <- dynmethods::create_docker_ti_method("dynverse/comp1")
+ti_comp1 <- dynwrap::create_docker_ti_method("dynverse/comp1")
 ```
