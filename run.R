@@ -27,4 +27,4 @@ tibble(
   cell_id = names(pseudotime),
   pseudotime = pseudotime
 ) %>%
-  write_csv("/output/pseudotimes.csv")
+  write_csv("/output/pseudotime.csv")
