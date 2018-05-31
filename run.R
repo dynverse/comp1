@@ -12,19 +12,19 @@ start_cells <- jsonlite::read_json("/input/start_cells.json", simplifyVector = T
 pca <- prcomp(expression)
 
 # extract the component and use it as pseudotimes
-pseudotimes <- pca$x[, params$component]
+pseudotime <- pca$x[, params$component]
 
 # flip pseudotimes using start_cells
 if (!is.null(start_cells)) {
-  if(mean(pseudotimes[start_cells]) > 0.5) {
-    pseudotimes <- 1-pseudotimes
+  if(mean(pseudotime[start_cells]) > 0.5) {
+    pseudotime <- 1-pseudotime
   }
 }
 
 ## Save output ---------------------------------------------
 # output pseudotimes
 tibble(
-  cell_id = names(pseudotimes),
-  pseudotime = pseudotimes
+  cell_id = names(pseudotime),
+  pseudotime = pseudotime
 ) %>%
   write_csv("/output/pseudotimes.csv")
