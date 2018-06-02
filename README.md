@@ -14,6 +14,6 @@ This method can be run directly from dockerhub using
 
 ```r
 library(dynwrap)
-ti_comp1 <- pull_docker_ti_method("dynverse/comp1")
+ti_comp1 <- pull_docker_ti_method("dynverse/comp1")()
 model <- infer_trajectory(task, ti_comp1)
 ```
