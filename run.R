@@ -5,7 +5,12 @@ library(tidyverse)
 expression <- read.csv("/input/expression.csv", row.names=1, header = TRUE) %>%
   as.matrix()
 params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
-start_cells <- jsonlite::read_json("/input/start_cells.json", simplifyVector = TRUE)
+
+if (file.exists("/input/start_cells.json")) {
+  start_cells <- jsonlite::read_json("/input/start_cells.json", simplifyVector = TRUE)
+} else {
+  start_cells <- NULL
+}
 
 ## Trajectory inference -----------------------------------
 # do PCA
