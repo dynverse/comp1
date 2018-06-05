@@ -1,6 +1,6 @@
 # Creating TI methods within a docker
 
-This repository contains a simple example of wrapping a TI method within a docker.
+This repository contains several examples of wrapping a TI method within a docker.
 
 It contains three main files:
 

@@ -7,10 +7,10 @@ expression <- read.csv("/input/expression.csv", row.names=1, header = TRUE) %>%
   as.matrix()
 params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
 
-if (file.exists("/input/prior_information.json")) {
-  priors <- jsonlite::read_json("/input/prior_information.json", simplifyVector = TRUE)
+if (file.exists("/input/start_cells.json")) {
+  start_cells <- jsonlite::read_json("/input/start_cells.json", simplifyVector = TRUE)
 } else {
-  priors <- list()
+  start_cells <- NULL
 }
 
 ## Trajectory inference -----------------------------------
@@ -21,8 +21,8 @@ pca <- prcomp(expression)
 pseudotime <- pca$x[, params$component]
 
 # flip pseudotimes using start_cells
-if (!is.null(priors$start_cells)) {
-  if(mean(pseudotime[priors$start_cells]) > 0.5) {
+if (!is.null(start_cells)) {
+  if(mean(pseudotime[start_cells]) > 0.5) {
     pseudotime <- 1-pseudotime
   }
 }
