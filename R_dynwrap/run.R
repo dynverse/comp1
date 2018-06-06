@@ -5,7 +5,8 @@ library(dynwrap)
 ## Load data -----------------------------------------------
 
 data <- read_rds("/input/data.rds")
-params <- read_rds("input/params.rds")
+
+params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
