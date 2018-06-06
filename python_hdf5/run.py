@@ -7,14 +7,13 @@ import json
 ## Load data -----------------------------------------------
 data = h5py.File("/input/data.h5", "r")
 expression = pd.DataFrame(data['expression'][:].T, index=data['expression'].attrs['rownames'].astype(np.str))
-data.close()
-
-params = json.load(open("input/params.json", "r"))
-
 if "start_cells" in data:
   start_cells = data['start_cells']
 else:
   start_cells = None
+data.close()
+
+params = json.load(open("input/params.json", "r"))
 
 
 ## Trajectory inference -----------------------------------
