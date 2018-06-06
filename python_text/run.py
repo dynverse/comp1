@@ -19,7 +19,7 @@ pca = sklearn.decomposition.PCA()
 x = pca.fit_transform(expression)
 
 # extract the component and use it as pseudotimes
-pseudotime = pd.Series(x[:, params["component"][0]], index=expression.index)
+pseudotime = pd.Series(x[:, params["component"]], index=expression.index)
 
 # flip pseudotimes using start_cells
 if start_cells is not None:
