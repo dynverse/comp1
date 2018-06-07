@@ -28,9 +28,5 @@ if (!is.null(start_cells)) {
 }
 
 ## Save output ---------------------------------------------
-# output pseudotimes
-tibble(
-  cell_id = names(pseudotime),
-  pseudotime = pseudotime
-) %>%
+tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
   write_csv("/output/pseudotime.csv")

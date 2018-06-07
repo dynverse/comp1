@@ -1,17 +1,18 @@
 library(dplyr, warn.conflicts = FALSE)
+library(tibble, warn.conflicts = FALSE)
 library(readr, warn.conflicts = FALSE)
-library(hdf5r)
+library(feather)
 
 ## Load data -----------------------------------------------
-file <- H5File$new("/input/data.h5", "r")
-expression <- file[["expression"]][,]
-rownames(expression) <- h5attr(file[["expression"]], "rownames")
-if(file$exists("start_cells")) {
-  start_cells <- file[["start_cells"]][]
+
+expression <- read_feather("/input/expression.feather") %>% 
+  column_to_rownames("rownames") %>% 
+  as.matrix()
+if(file.exists("/input/start_cells.feather")) {
+  start_cells <- read_feather("/input/start_cells.feather")$start_cells
 } else {
   start_cells <- NULL
 }
-file$close()
 
 params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
 
@@ -30,5 +31,6 @@ if (!is.null(start_cells)) {
 }
 
 ## Save output ---------------------------------------------
+# output pseudotimes
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
-  write_csv("/output/pseudotime.csv")
+  write_feather("/output/pseudotime.feather")
