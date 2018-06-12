@@ -8,10 +8,10 @@ library(feather)
 expression <- read_feather("/input/expression.feather") %>% 
   column_to_rownames("rownames") %>% 
   as.matrix()
-if(file.exists("/input/start_cells.feather")) {
-  start_cells <- read_feather("/input/start_cells.feather")$start_cells
+if(file.exists("/input/start_id.feather")) {
+  start_id <- read_feather("/input/start_id.feather")$start_id
 } else {
-  start_cells <- NULL
+  start_id <- NULL
 }
 
 params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
@@ -23,9 +23,9 @@ pca <- prcomp(expression)
 # extract the component and use it as pseudotimes
 pseudotime <- pca$x[, params$component]
 
-# flip pseudotimes using start_cells
-if (!is.null(start_cells)) {
-  if(mean(pseudotime[start_cells]) > 0.5) {
+# flip pseudotimes using start_id
+if (!is.null(start_id)) {
+  if(mean(pseudotime[start_id]) > 0.5) {
     pseudotime <- 1-pseudotime
   }
 }

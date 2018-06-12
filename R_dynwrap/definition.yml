@@ -10,6 +10,6 @@ input:
   required:
     - expression
   optional:
-    - start_cells
+    - start_id
 output:
   format: dynwrap

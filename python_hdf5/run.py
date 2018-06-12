@@ -7,13 +7,13 @@ import json
 ## Load data -----------------------------------------------
 data = h5py.File("/input/data.h5", "r")
 expression = pd.DataFrame(data['expression'][:].T, index=data['expression'].attrs['rownames'].astype(np.str))
-if "start_cells" in data:
-  start_cells = data['start_cells']
+if "start_id" in data:
+  start_id = data['start_id']
 else:
-  start_cells = None
+  start_id = None
 data.close()
 
-params = json.load(open("input/params.json", "r"))
+params = json.load(open("/input/params.json", "r"))
 
 
 ## Trajectory inference -----------------------------------
@@ -24,9 +24,9 @@ x = pca.fit_transform(expression)
 # extract the component and use it as pseudotimes
 pseudotime = pd.Series(x[:, params["component"]], index=expression.index)
 
-# flip pseudotimes using start_cells
-if start_cells is not None:
-  if pseudotime[start_cells].mean():
+# flip pseudotimes using start_id
+if start_id is not None:
+  if pseudotime[start_id].mean():
     pseudotime = 1 - pseudotime
 # 
 # ## Save output ---------------------------------------------

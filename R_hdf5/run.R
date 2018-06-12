@@ -6,10 +6,10 @@ library(hdf5r)
 file <- H5File$new("/input/data.h5", "r")
 expression <- file[["expression"]][,]
 rownames(expression) <- h5attr(file[["expression"]], "rownames")
-if(file$exists("start_cells")) {
-  start_cells <- file[["start_cells"]][]
+if(file$exists("start_id")) {
+  start_id <- file[["start_id"]][]
 } else {
-  start_cells <- NULL
+  start_id <- NULL
 }
 file$close()
 
@@ -22,9 +22,9 @@ pca <- prcomp(expression)
 # extract the component and use it as pseudotimes
 pseudotime <- pca$x[, params$component]
 
-# flip pseudotimes using start_cells
-if (!is.null(start_cells)) {
-  if(mean(pseudotime[start_cells]) > 0.5) {
+# flip pseudotimes using start_id
+if (!is.null(start_id)) {
+  if(mean(pseudotime[start_id]) > 0.5) {
     pseudotime <- 1-pseudotime
   }
 }

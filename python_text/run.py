@@ -5,12 +5,12 @@ import os
 
 ## Load data -----------------------------------------------
 expression = pd.read_csv("/input/expression.csv", index_col=0)
-params = json.load(open("input/params.json", "r"))
+params = json.load(open("/input/params.json", "r"))
 
-if os.path.exists("input/start_cells.json"):
-  start_cells = json.load(open("input/start_cells.json"))
+if os.path.exists("/input/start_id.json"):
+  start_id = json.load(open("/input/start_id.json"))
 else:
-  start_cells = None
+  start_id = None
 
 
 ## Trajectory inference -----------------------------------
@@ -21,9 +21,9 @@ x = pca.fit_transform(expression)
 # extract the component and use it as pseudotimes
 pseudotime = pd.Series(x[:, params["component"]], index=expression.index)
 
-# flip pseudotimes using start_cells
-if start_cells is not None:
-  if pseudotime[start_cells].mean():
+# flip pseudotimes using start_id
+if start_id is not None:
+  if pseudotime[start_id].mean():
     pseudotime = 1 - pseudotime
 
 ## Save output ---------------------------------------------

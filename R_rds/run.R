@@ -13,9 +13,9 @@ pca <- prcomp(data$expression)
 # extract the component and use it as pseudotimes
 pseudotime <- pca$x[, params$component]
 
-# flip pseudotimes using start_cells
-if (!is.null(data$start_cells)) {
-  if(mean(pseudotime[priors$start_cells]) > 0.5) {
+# flip pseudotimes using start_id
+if (!is.null(data$start_id)) {
+  if(mean(pseudotime[priors$start_id]) > 0.5) {
     pseudotime <- 1-pseudotime
   }
 }
