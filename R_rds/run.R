@@ -23,6 +23,7 @@ if (!is.null(data$start_id)) {
 ## Save output ---------------------------------------------
 # output pseudotimes
 output <- list(
+  cell_ids = names(pseudotime),
   pseudotime = tibble(
     cell_id = names(pseudotime),
     pseudotime = pseudotime

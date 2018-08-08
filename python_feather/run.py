@@ -6,7 +6,8 @@ import feather
 
 ## Load data -----------------------------------------------
 
-expression = pd.read_feather("/input/expression.feather").set_index("rownames")
+expression = pd.read_feather("/i
+ut/expression.feather").set_index("rownames")
 params = json.load(open("/input/params.json", "r"))
 
 if os.path.exists("/input/start_id.feather"):
@@ -21,6 +22,9 @@ pca = sklearn.decomposition.PCA()
 x = pca.fit_transform(expression)
 
 # extract the component and use it as pseudotimes
+cell_ids = pd.DataFrame({
+  "cell_ids":expression.index
+})
 pseudotime = pd.DataFrame({
   "pseudotime":x[:, params["component"]], 
   "cell_id":expression.index
@@ -33,4 +37,5 @@ if start_id is not None:
 
 ## Save output ---------------------------------------------
 # output pseudotimes
+cell_ids.to_feather("/output/cell_ids.feather")
 pseudotime.to_feather("/output/pseudotime.feather")

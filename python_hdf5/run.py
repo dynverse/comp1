@@ -22,14 +22,21 @@ pca = sklearn.decomposition.PCA()
 x = pca.fit_transform(expression)
 
 # extract the component and use it as pseudotimes
-pseudotime = pd.Series(x[:, params["component"]], index=expression.index)
+cell_ids = pd.DataFrame({
+  "cell_ids":expression.index
+})
+pseudotime = pd.DataFrame({
+  "pseudotime":x[:, params["component"]], 
+  "cell_id":expression.index
+})
 
 # flip pseudotimes using start_id
 if start_id is not None:
-  if pseudotime[start_id].mean():
-    pseudotime = 1 - pseudotime
+  if pseudotime.pseudotime[start_id].mean():
+    pseudotime.pseudotime = 1 - pseudotime.pseudotime
 # 
 # ## Save output ---------------------------------------------
 # # output pseudotimes
 # output pseudotimes
-pd.DataFrame({"cell_id": pseudotime.index, "pseudotime":pseudotime}).to_csv("/output/pseudotime.csv", index=False)
+cell_ids.to_csv("/output/cell_ids.csv")
+pseudotime.to_csv("/output/pseudotime.csv")

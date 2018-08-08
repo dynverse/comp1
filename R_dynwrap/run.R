@@ -24,7 +24,11 @@ if (!is.null(data$start_id)) {
 
 ## Save output ---------------------------------------------
 # output pseudotimes
-model <- dynwrap::wrap_data(cell_ids = rownames(data$expression)) %>% 
-  add_linear_trajectory(pseudotime)
+model <- wrap_data(
+  cell_ids = rownames(data$expression)
+) %>% 
+  add_linear_trajectory(
+  pseudotime = pseudotime
+)
 
 write_rds(model, "/output/output.rds")

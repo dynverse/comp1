@@ -32,5 +32,7 @@ if (!is.null(start_id)) {
 
 ## Save output ---------------------------------------------
 # output pseudotimes
+tibble::tibble(cell_ids = names(pseudotime)) %>% 
+  write_feather("/output/cell_ids.feather")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
   write_feather("/output/pseudotime.feather")

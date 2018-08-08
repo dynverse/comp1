@@ -30,5 +30,7 @@ if (!is.null(start_id)) {
 }
 
 ## Save output ---------------------------------------------
+tibble::tibble(cell_ids = names(pseudotime)) %>%
+  write_csv("/output/cell_ids.csv")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
   write_csv("/output/pseudotime.csv")
