@@ -6,8 +6,7 @@ import feather
 
 ## Load data -----------------------------------------------
 
-expression = pd.read_feather("/i
-ut/expression.feather").set_index("rownames")
+expression = pd.read_feather("/input/expression.feather").set_index("rownames")
 params = json.load(open("/input/params.json", "r"))
 
 if os.path.exists("/input/start_id.feather"):
