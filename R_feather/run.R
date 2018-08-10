@@ -5,16 +5,16 @@ library(feather)
 
 ## Load data -----------------------------------------------
 
-expression <- read_feather("/input/expression.feather") %>% 
+expression <- read_feather("/ti/input/expression.feather") %>% 
   column_to_rownames("rownames") %>% 
   as.matrix()
-if(file.exists("/input/start_id.feather")) {
-  start_id <- read_feather("/input/start_id.feather")$start_id
+if(file.exists("/ti/input/start_id.feather")) {
+  start_id <- read_feather("/ti/input/start_id.feather")$start_id
 } else {
   start_id <- NULL
 }
 
-params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
@@ -33,6 +33,6 @@ if (!is.null(start_id)) {
 ## Save output ---------------------------------------------
 # output pseudotimes
 tibble::tibble(cell_ids = names(pseudotime)) %>% 
-  write_feather("/output/cell_ids.feather")
+  write_feather("/ti/output/cell_ids.feather")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
-  write_feather("/output/pseudotime.feather")
+  write_feather("/ti/output/pseudotime.feather")

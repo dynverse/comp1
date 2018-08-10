@@ -5,7 +5,7 @@ import h5py
 import json
 
 ## Load data -----------------------------------------------
-data = h5py.File("/input/data.h5", "r")
+data = h5py.File("/ti/input/data.h5", "r")
 expression = pd.DataFrame(data['expression'][:].T, index=data['expression'].attrs['rownames'].astype(np.str))
 if "start_id" in data:
   start_id = data['start_id']
@@ -13,7 +13,7 @@ else:
   start_id = None
 data.close()
 
-params = json.load(open("/input/params.json", "r"))
+params = json.load(open("/ti/input/params.json", "r"))
 
 
 ## Trajectory inference -----------------------------------
@@ -38,5 +38,5 @@ if start_id is not None:
 # ## Save output ---------------------------------------------
 # # output pseudotimes
 # output pseudotimes
-cell_ids.to_csv("/output/cell_ids.csv")
-pseudotime.to_csv("/output/pseudotime.csv")
+cell_ids.to_csv("/ti/output/cell_ids.csv")
+pseudotime.to_csv("/ti/output/pseudotime.csv")

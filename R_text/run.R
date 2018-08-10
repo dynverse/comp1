@@ -3,12 +3,12 @@ library(readr, warn.conflicts = FALSE)
 
 ## Load data -----------------------------------------------
 
-expression <- read.csv("/input/expression.csv", row.names=1, header = TRUE) %>%
+expression <- read.csv("/ti/input/expression.csv", row.names=1, header = TRUE) %>%
   as.matrix()
-params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
-if (file.exists("/input/start_id.json")) {
-  start_id <- jsonlite::read_json("/input/start_id.json", simplifyVector = TRUE)
+if (file.exists("/ti/input/start_id.json")) {
+  start_id <- jsonlite::read_json("/ti/input/start_id.json", simplifyVector = TRUE)
 } else {
   start_id <- NULL
 }
@@ -29,6 +29,6 @@ if (!is.null(start_id)) {
 
 ## Save output ---------------------------------------------
 tibble::tibble(cell_ids = names(pseudotime)) %>%
-  write_csv("/output/cell_ids.csv")
+  write_csv("/ti/output/cell_ids.csv")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
-  write_csv("/output/pseudotime.csv")
+  write_csv("/ti/output/pseudotime.csv")

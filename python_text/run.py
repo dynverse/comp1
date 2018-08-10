@@ -4,11 +4,11 @@ import json
 import os
 
 ## Load data -----------------------------------------------
-expression = pd.read_csv("/input/expression.csv", index_col=0)
-params = json.load(open("/input/params.json", "r"))
+expression = pd.read_csv("/ti/input/expression.csv", index_col=0)
+params = json.load(open("/ti/input/params.json", "r"))
 
-if os.path.exists("/input/start_id.json"):
-  start_id = json.load(open("/input/start_id.json"))
+if os.path.exists("/ti/input/start_id.json"):
+  start_id = json.load(open("/ti/input/start_id.json"))
 else:
   start_id = None
 
@@ -35,5 +35,5 @@ if start_id is not None:
 # ## Save output ---------------------------------------------
 # # output pseudotimes
 # output pseudotimes
-cell_ids.to_csv("/output/cell_ids.csv")
-pseudotime.to_csv("/output/pseudotime.csv")
+cell_ids.to_csv("/ti/output/cell_ids.csv")
+pseudotime.to_csv("/ti/output/pseudotime.csv")

@@ -3,7 +3,7 @@ library(readr, warn.conflicts = FALSE)
 library(hdf5r)
 
 ## Load data -----------------------------------------------
-file <- H5File$new("/input/data.h5", "r")
+file <- H5File$new("/ti/input/data.h5", "r")
 expression <- file[["expression"]][,]
 rownames(expression) <- h5attr(file[["expression"]], "rownames")
 if(file$exists("start_id")) {
@@ -13,7 +13,7 @@ if(file$exists("start_id")) {
 }
 file$close()
 
-params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
@@ -31,6 +31,6 @@ if (!is.null(start_id)) {
 
 ## Save output ---------------------------------------------
 tibble::tibble(cell_ids = names(pseudotime)) %>%
-  write_csv("/output/cell_ids.csv")
+  write_csv("/ti/output/cell_ids.csv")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
-  write_csv("/output/pseudotime.csv")
+  write_csv("/ti/output/pseudotime.csv")

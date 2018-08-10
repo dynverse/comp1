@@ -6,11 +6,11 @@ import feather
 
 ## Load data -----------------------------------------------
 
-expression = pd.read_feather("/input/expression.feather").set_index("rownames")
-params = json.load(open("/input/params.json", "r"))
+expression = pd.read_feather("/ti/input/expression.feather").set_index("rownames")
+params = json.load(open("/ti/input/params.json", "r"))
 
-if os.path.exists("/input/start_id.feather"):
-  start_id = pd.read_feather("/input/start_id.feather").start_id
+if os.path.exists("/ti/input/start_id.feather"):
+  start_id = pd.read_feather("/ti/input/start_id.feather").start_id
 else:
   start_id = None
 
@@ -36,5 +36,5 @@ if start_id is not None:
 
 ## Save output ---------------------------------------------
 # output pseudotimes
-cell_ids.to_feather("/output/cell_ids.feather")
-pseudotime.to_feather("/output/pseudotime.feather")
+cell_ids.to_feather("/ti/output/cell_ids.feather")
+pseudotime.to_feather("/ti/output/pseudotime.feather")

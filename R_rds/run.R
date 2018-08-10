@@ -3,8 +3,8 @@ library(readr, warn.conflicts = FALSE)
 
 ## Load data -----------------------------------------------
 
-data <- read_rds("/input/data.rds")
-params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
+data <- read_rds("/ti/input/data.rds")
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
@@ -30,4 +30,4 @@ output <- list(
   )
 )
 
-write_rds(output, "/output/output.rds")
+write_rds(output, "/ti/output/output.rds")

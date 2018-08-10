@@ -4,9 +4,9 @@ library(dynwrap)
 
 ## Load data -----------------------------------------------
 
-data <- read_rds("/input/data.rds")
+data <- read_rds("/ti/input/data.rds")
 
-params <- jsonlite::read_json("/input/params.json", simplifyVector = TRUE)
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
@@ -31,4 +31,4 @@ model <- wrap_data(
   pseudotime = pseudotime
 )
 
-write_rds(model, "/output/output.rds")
+write_rds(model, "/ti/output/output.rds")
