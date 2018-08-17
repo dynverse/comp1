@@ -38,5 +38,5 @@ if start_id is not None:
 # ## Save output ---------------------------------------------
 # # output pseudotimes
 # output pseudotimes
-cell_ids.to_csv("/ti/output/cell_ids.csv")
-pseudotime.to_csv("/ti/output/pseudotime.csv")
+cell_ids.to_csv("/ti/output/cell_ids.csv", index = False)
+pseudotime.to_csv("/ti/output/pseudotime.csv", index = False)
