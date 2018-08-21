@@ -8,12 +8,12 @@ It contains three main files:
 * `Dockerfile` Used for building the docker, its entrypoint is used to run the method
 * `run.R` Loads the data, infers a trajectory, and generates some output files
 
-The docker image is automatically build at [dockerhub](https://hub.docker.com/r/dynverse/comp1/builds/).
+The docker image is automatically build at [dockerhub](https://hub.docker.com/r/dynverse/dynwrap_tester/builds/).
 
 This method can be run directly from dockerhub using
 
 ```r
 library(dynwrap)
-ti_comp1 <- pull_docker_ti_method("dynverse/comp1")()
+ti_comp1 <- pull_docker_ti_method("dynverse/dynwrap_tester")()
 model <- infer_trajectory(task, ti_comp1)
 ```

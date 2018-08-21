@@ -1,6 +1,6 @@
-id: comp1
-docker_repository: dynverse/comp1
-container_url: https://github.com/dynverse/dynmethods/tree/master/containers/comp1
+id: dynwrap_tester_python_feather
+docker_repository: dynverse/dynwrap_tester:python_feather
+container_url: https://github.com/dynverse/dynwrap_tester/tree/master/python_feather
 name: Component 1
 parameters:
   component:

@@ -1,6 +1,6 @@
-id: comp1
-docker_repository: dynverse/comp1
-container_url: https://github.com/dynverse/dynmethods/tree/master/containers/comp1
+id: dynwrap_tester_R_dynwrap
+docker_repository: dynverse/dynwrap_tester_R_dynwrap
+container_url: https://github.com/dynverse/dynwrap_tester/tree/master/R_dynwrap
 name: Component 1
 parameters:
   component:
