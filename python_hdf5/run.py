@@ -6,7 +6,7 @@ import json
 
 ## Load data -----------------------------------------------
 data = h5py.File("/ti/input/data.h5", "r")
-expression = pd.DataFrame(data['counts'][:].T, index = data['expression_rows'][:].astype(np.str), columns = data['expression_cols'][:].astype(np.str))
+expression = pd.DataFrame(data['expression'][:].T, index = data['expression_rows'][:].astype(np.str), columns = data['expression_cols'][:].astype(np.str))
 if "start_id" in data:
   start_id = data['start_id']
 else:

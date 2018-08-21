@@ -5,7 +5,7 @@ library(hdf5r)
 ## Load data -----------------------------------------------
 file <- H5File$new("/ti/input/data.h5", "r")
 expression <- file[["expression"]][,]
-rownames(expression) <- h5attr(file[["expression"]], "rownames")
+rownames(expression) <- file[["expression_rows"]][]
 if(file$exists("start_id")) {
   start_id <- file[["start_id"]][]
 } else {
