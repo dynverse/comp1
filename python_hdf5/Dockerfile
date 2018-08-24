@@ -7,4 +7,4 @@ RUN pip install h5py tables
 
 ADD . /code
 
-ENTRYPOINT python /code/run.py
+ENTRYPOINT /code/run.sh

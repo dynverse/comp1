@@ -7,4 +7,4 @@ RUN R -e "install.packages('hdf5r')"
 
 ADD . /code
 
-ENTRYPOINT Rscript /code/run.R
+ENTRYPOINT /code/run.sh

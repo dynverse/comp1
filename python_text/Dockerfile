@@ -5,4 +5,4 @@ RUN pip install sklearn
 
 ADD . /code
 
-ENTRYPOINT python /code/run.py
+ENTRYPOINT /code/run.sh

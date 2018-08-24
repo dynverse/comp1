@@ -7,4 +7,4 @@ RUN pip install Cython feather-format
 
 ADD . /code
 
-ENTRYPOINT python /code/run.py
+ENTRYPOINT /code/run.sh
