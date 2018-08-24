@@ -1,18 +1,21 @@
+#!/usr/bin/python
+
 import pandas as pd
 import sklearn.decomposition
+import numpy as np
+import h5py
 import json
-import os
-import feather
 
 ## Load data -----------------------------------------------
-
-expression = pd.read_feather("/ti/input/expression.feather").set_index("rownames")
-params = json.load(open("/ti/input/params.json", "r"))
-
-if os.path.exists("/ti/input/start_id.feather"):
-  start_id = pd.read_feather("/ti/input/start_id.feather").start_id
+data = h5py.File("/ti/input/data.h5", "r")
+expression = pd.DataFrame(data['expression'][:].T, index = data['expression_rows'][:].astype(np.str), columns = data['expression_cols'][:].astype(np.str))
+if "start_id" in data:
+  start_id = data['start_id']
 else:
   start_id = None
+data.close()
+
+params = json.load(open("/ti/input/params.json", "r"))
 
 
 ## Trajectory inference -----------------------------------
@@ -33,8 +36,9 @@ pseudotime = pd.DataFrame({
 if start_id is not None:
   if pseudotime.pseudotime[start_id].mean():
     pseudotime.pseudotime = 1 - pseudotime.pseudotime
-
-## Save output ---------------------------------------------
+# 
+# ## Save output ---------------------------------------------
+# # output pseudotimes
 # output pseudotimes
-cell_ids.to_feather("/ti/output/cell_ids.feather")
-pseudotime.to_feather("/ti/output/pseudotime.feather")
+cell_ids.to_csv("/ti/output/cell_ids.csv", index = False)
+pseudotime.to_csv("/ti/output/pseudotime.csv", index = False)

@@ -1,18 +1,19 @@
+#!/usr/bin/Rscript
+
 library(dplyr, warn.conflicts = FALSE)
-library(tibble, warn.conflicts = FALSE)
 library(readr, warn.conflicts = FALSE)
-library(feather)
+library(hdf5r)
 
 ## Load data -----------------------------------------------
-
-expression <- read_feather("/ti/input/expression.feather") %>% 
-  column_to_rownames("rownames") %>% 
-  as.matrix()
-if(file.exists("/ti/input/start_id.feather")) {
-  start_id <- read_feather("/ti/input/start_id.feather")$start_id
+file <- H5File$new("/ti/input/data.h5", "r")
+expression <- file[["expression"]][,]
+rownames(expression) <- file[["expression_rows"]][]
+if(file$exists("start_id")) {
+  start_id <- file[["start_id"]][]
 } else {
   start_id <- NULL
 }
+file$close()
 
 params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
@@ -31,8 +32,7 @@ if (!is.null(start_id)) {
 }
 
 ## Save output ---------------------------------------------
-# output pseudotimes
-tibble::tibble(cell_ids = names(pseudotime)) %>% 
-  write_feather("/ti/output/cell_ids.feather")
+tibble::tibble(cell_ids = names(pseudotime)) %>%
+  write_csv("/ti/output/cell_ids.csv")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
-  write_feather("/ti/output/pseudotime.feather")
+  write_csv("/ti/output/pseudotime.csv")

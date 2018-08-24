@@ -1,14 +1,18 @@
+#!/usr/bin/python
+
 import pandas as pd
 import sklearn.decomposition
 import json
 import os
+import feather
 
 ## Load data -----------------------------------------------
-expression = pd.read_csv("/ti/input/expression.csv", index_col=0)
+
+expression = pd.read_feather("/ti/input/expression.feather").set_index("rownames")
 params = json.load(open("/ti/input/params.json", "r"))
 
-if os.path.exists("/ti/input/start_id.json"):
-  start_id = json.load(open("/ti/input/start_id.json"))
+if os.path.exists("/ti/input/start_id.feather"):
+  start_id = pd.read_feather("/ti/input/start_id.feather").start_id
 else:
   start_id = None
 
@@ -31,9 +35,8 @@ pseudotime = pd.DataFrame({
 if start_id is not None:
   if pseudotime.pseudotime[start_id].mean():
     pseudotime.pseudotime = 1 - pseudotime.pseudotime
-# 
-# ## Save output ---------------------------------------------
-# # output pseudotimes
+
+## Save output ---------------------------------------------
 # output pseudotimes
-cell_ids.to_csv("/ti/output/cell_ids.csv", index = False)
-pseudotime.to_csv("/ti/output/pseudotime.csv", index = False)
+cell_ids.to_feather("/ti/output/cell_ids.feather")
+pseudotime.to_feather("/ti/output/pseudotime.feather")
