@@ -1,19 +1,18 @@
+#!/usr/local/bin/python
+
 import pandas as pd
 import sklearn.decomposition
-import numpy as np
-import h5py
 import json
+import os
 
 ## Load data -----------------------------------------------
-data = h5py.File("/ti/input/data.h5", "r")
-expression = pd.DataFrame(data['expression'][:].T, index = data['expression_rows'][:].astype(np.str), columns = data['expression_cols'][:].astype(np.str))
-if "start_id" in data:
-  start_id = data['start_id']
+expression = pd.read_csv("/ti/input/expression.csv", index_col=0)
+params = json.load(open("/ti/input/params.json", "r"))
+
+if os.path.exists("/ti/input/start_id.json"):
+  start_id = json.load(open("/ti/input/start_id.json"))
 else:
   start_id = None
-data.close()
-
-params = json.load(open("/ti/input/params.json", "r"))
 
 
 ## Trajectory inference -----------------------------------

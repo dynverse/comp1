@@ -1,7 +1,7 @@
 #!/bin/bash
 
 for tag in */ ; do
-  echo $tag
+  echo "> docker build ${tag::-1} -t dynverse/dynwrap_tester:${tag::-1}"
   docker build ${tag::-1} -t dynverse/dynwrap_tester:${tag::-1}
 done
 
