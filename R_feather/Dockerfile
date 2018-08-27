@@ -1,7 +1,6 @@
-# docker build R_feather -t dynverse/comp1:R_feather
 FROM dynverse/dynwrap:r
 
-RUN R -e 'install.packages("feather")'
+RUN R -e 'devtools::install_cran("feather")'
 
 ADD . /code
 
