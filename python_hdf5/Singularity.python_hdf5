@@ -1,9 +1,9 @@
-Bootstrap: docker
+Bootstrap: shub
 
 From: dynverse/dynwrap:py3.6
 
 %labels
-    version 0.1.0.1
+    version 0.1.0.2
 
 %files
     . /code
