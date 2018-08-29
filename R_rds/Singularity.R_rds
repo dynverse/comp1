@@ -1,0 +1,9 @@
+Bootstrap: docker
+
+From: dynverse/dynwrap:bioc
+
+%labels
+    version 0.1.0.1
+
+%files
+    . /code

@@ -1,6 +1,6 @@
 FROM dynverse/dynwrap:r
 
-RUN R -e 'devtools::install_cran("feather")'
+LABEL version 0.1.0.1
 
 ADD . /code
 

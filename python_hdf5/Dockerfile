@@ -1,8 +1,6 @@
 FROM dynverse/dynwrap:py3.6
 
-RUN pip install sklearn
-
-RUN pip install h5py tables
+LABEL version 0.1.0.1
 
 ADD . /code
 
