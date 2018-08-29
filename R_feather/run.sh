@@ -1,4 +1,4 @@
-#!/usr/bin/Rscript
+#!/usr/local/bin/Rscript
 
 library(dplyr, warn.conflicts = FALSE)
 library(tibble, warn.conflicts = FALSE)
