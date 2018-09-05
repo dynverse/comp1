@@ -1,19 +1,20 @@
-#!/usr/local/bin/Rscript
-
 library(dplyr, warn.conflicts = FALSE)
+library(tibble, warn.conflicts = FALSE)
 library(readr, warn.conflicts = FALSE)
+library(feather)
 
 ## Load data -----------------------------------------------
 
-expression <- read.csv("/ti/input/expression.csv", row.names=1, header = TRUE) %>%
+expression <- read_feather("/ti/input/expression.feather") %>% 
+  column_to_rownames("rownames") %>% 
   as.matrix()
-params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
-
-if (file.exists("/ti/input/start_id.json")) {
-  start_id <- jsonlite::read_json("/ti/input/start_id.json", simplifyVector = TRUE)
+if(file.exists("/ti/input/start_id.feather")) {
+  start_id <- read_feather("/ti/input/start_id.feather")$start_id
 } else {
   start_id <- NULL
 }
+
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
@@ -30,7 +31,8 @@ if (!is.null(start_id)) {
 }
 
 ## Save output ---------------------------------------------
-tibble::tibble(cell_ids = names(pseudotime)) %>%
-  write_csv("/ti/output/cell_ids.csv")
+# output pseudotimes
+tibble::tibble(cell_ids = names(pseudotime)) %>% 
+  write_feather("/ti/output/cell_ids.feather")
 tibble::enframe(pseudotime, "cell_id", "pseudotime") %>% 
-  write_csv("/ti/output/pseudotime.csv")
+  write_feather("/ti/output/pseudotime.feather")
