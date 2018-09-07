@@ -6,7 +6,7 @@ tags <- list.dirs(recursive = TRUE) %>% str_subset("\\./(R|python)_") %>% str_re
 for (tag in tags) {
   cat(tag, "\n", sep = "")
 
-  dynwrap:::.container_dockerfile_to_singularityrecipe(
+  babelwhale::convert_dockerfile_to_singularityrecipe(
     paste0(tag, "/Dockerfile"),
     paste0(tag, "/Singularity.", tag)
   )
