@@ -1,9 +1,7 @@
 FROM dynverse/dynwrap:r
 
-RUN apt-get -y install libhdf5-dev
-
-RUN R -e "devtools::install_cran('hdf5r')"
+LABEL version 0.1.0.4
 
 ADD . /code
 
-ENTRYPOINT /code/run.sh
+ENTRYPOINT Rscript /code/run.R

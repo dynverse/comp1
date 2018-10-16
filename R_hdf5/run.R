@@ -1,19 +1,19 @@
-#!/usr/bin/Rscript
-
 library(dplyr, warn.conflicts = FALSE)
 library(readr, warn.conflicts = FALSE)
+library(hdf5r)
 
 ## Load data -----------------------------------------------
-
-expression <- read.csv("/ti/input/expression.csv", row.names=1, header = TRUE) %>%
-  as.matrix()
-params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
-
-if (file.exists("/ti/input/start_id.json")) {
-  start_id <- jsonlite::read_json("/ti/input/start_id.json", simplifyVector = TRUE)
+file <- H5File$new("/ti/input/data.h5", "r")
+expression <- file[["expression"]][,]
+rownames(expression) <- file[["expression_rows"]][]
+if(file$exists("start_id")) {
+  start_id <- file[["start_id"]][]
 } else {
   start_id <- NULL
 }
+file$close()
+
+params <- jsonlite::read_json("/ti/input/params.json", simplifyVector = TRUE)
 
 ## Trajectory inference -----------------------------------
 # do PCA
