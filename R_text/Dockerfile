@@ -1,6 +1,6 @@
 FROM dynverse/dynwrap:r
 
-LABEL version 0.1.0.4
+LABEL version 0.2.0.1
 
 ADD . /code
 
